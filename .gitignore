@@ -1,0 +1,36 @@
+# Root ignores
+.env
+.env.*
+.DS_Store
+
+# Node artifacts
+node_modules/
+package-lock.json
+
+# Build outputs
+backend/dist/
+frontend/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.logs/
+
+# Docker
+*.pid
+*.log
+.docker-compose.override.yml
+docker-compose.local.yml
+.docker-cache/
+
+# IDE/editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Misc
+coverage/
+tmp/

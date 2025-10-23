@@ -1,0 +1,47 @@
+name: wikipedia-rag
+
+networks:
+  app:
+    driver: bridge
+  tcc_backend:
+    external: true
+
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      OPENAI_API_KEY: ${OPENAI_API_KEY:?Set OPENAI_API_KEY in your environment}
+    restart: unless-stopped
+    networks:
+      - app
+      - tcc_backend
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=tcc_backend
+      - traefik.http.routers.rag-backend.entrypoints=websecure
+      - traefik.http.routers.rag-backend.rule=Host(`api.rag.murdix.com`)
+      - traefik.http.routers.rag-backend.tls=true
+      - traefik.http.routers.rag-backend.tls.certresolver=letsencrypt
+      - traefik.http.services.rag-backend.loadbalancer.server.port=3001
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-https://api.rag.murdix.com}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - tcc_backend
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=tcc_backend
+      - traefik.http.routers.rag-frontend.entrypoints=websecure
+      - traefik.http.routers.rag-frontend.rule=Host(`rag.murdix.com`)
+      - traefik.http.routers.rag-frontend.tls=true
+      - traefik.http.routers.rag-frontend.tls.certresolver=letsencrypt
+      - traefik.http.services.rag-frontend.loadbalancer.server.port=80

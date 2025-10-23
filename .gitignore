@@ -23,7 +23,6 @@ lerna-debug.log*
 *.pid
 *.log
 .docker-compose.override.yml
-docker-compose.local.yml
 .docker-cache/
 
 # IDE/editor

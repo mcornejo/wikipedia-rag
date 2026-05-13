@@ -51,3 +51,5 @@ Prerequisites: Node 20, npm 10.
 1. Set `OPENAI_API_KEY` and optionally `VITE_API_BASE_URL` in your environment.
 2. Run `./deploy.sh` to sync files via rsync and run `docker compose up -d --build` on the remote host.
 3. Traefik labels route frontend (rag.murdix.com) and API (api.rag.murdix.com).
+
+## Archived

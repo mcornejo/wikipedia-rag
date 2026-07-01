@@ -1,4 +1,4 @@
-# Description 2
+# Description 3
 
 Wikipedia RAG is a minimal retrieval-augmented generation prototype. The app lets you ingest any Wikipedia article, chunk and embed its content with OpenAI embeddings, and chat against the stored context. The frontend provides a simple two-step flow (ingest + chat) while the backend orchestrates the pipeline and keeps conversations in memory.
 
